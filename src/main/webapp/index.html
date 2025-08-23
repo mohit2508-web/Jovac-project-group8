@@ -1,12 +1,376 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>DevOps Java WebApp</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSyncer - Find Your Perfect Coder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #e8eaf6;
+            color: #333;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-register {
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-register:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        .btn-contact {
+            background: transparent;
+            color: #333;
+            padding: 12px 24px;
+            border: 2px solid #333;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-contact:hover {
+            background: #333;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            color: #6366f1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .btn-primary {
+            background: #333;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #555;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #333;
+            padding: 16px 32px;
+            border: 2px solid #333;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Skills Tags */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 80px;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: #666;
+            font-weight: 500;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            text-align: center;
+            padding: 0 20px 80px;
+        }
+
+        .how-it-works h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 50px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .skills {
+                gap: 10px;
+            }
+
+            .how-it-works h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
-<body style="background-color:#66ff99;text-align:center">
-<h1>This is a Sample Java Web for group 8!!!!!!!!!!!!!!!!</h1>
-<h2>welcomeguys!!!!!!!!!!!!!!!</h1>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">MS</div>
+            <span>MindSyncer</span>
+        </div>
+        
+        <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Star Profiles</a></li>
+                <li><a href="#">Pricing</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <a href="#" class="btn-register">Register/Login</a>
+                <a href="#" class="btn-contact">Contact US</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Find your perfect <span class="highlight">coder</span> in seconds</h1>
+            
+            <p>
+                Collaborate with developers, designers, and professionals to bring your next 
+                big idea to life. MindSyncer helps you build meaningful connections and 
+                successful projects.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">Join Now</a>
+                <a href="#" class="btn-secondary">View Profiles</a>
+            </div>
+            
+            <div class="skills">
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">AI/ML</span>
+                <span class="skill-tag">Web3</span>
+                <span class="skill-tag">UI/UX</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">TailwindCSS</span>
+                <span class="skill-tag">Kub</span>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How MindSyncer Works</h2>
+        </section>
+    </main>
+
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add floating animation to skill tags
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach((tag, index) => {
+                tag.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Header background change on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.9)';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
